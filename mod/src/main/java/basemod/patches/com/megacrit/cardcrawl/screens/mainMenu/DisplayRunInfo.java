@@ -1,8 +1,8 @@
 package basemod.patches.com.megacrit.cardcrawl.screens.mainMenu;
 
 import basemod.ReflectionHacks;
+import basemod.helpers.ColorMarkupNames;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Colors;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.evacipated.cardcrawl.modthespire.lib.*;
@@ -35,9 +35,6 @@ public class DisplayRunInfo
 {
 	private static final Color BG_COLOR = Color.BLACK.cpy();
 	private static final Color FG_COLOR = Settings.CREAM_COLOR.cpy();
-	private static final Color RED = Settings.RED_TEXT_COLOR.cpy();
-	private static final Color BLUE = Settings.BLUE_TEXT_COLOR.cpy();
-	private static final Color GOLD = Settings.GOLD_COLOR.cpy();
 	private static final float PADDING = 15 * Settings.scale;
 	private static final float MIN_BOX_WIDTH = 300 * Settings.scale;
 
@@ -93,9 +90,7 @@ public class DisplayRunInfo
 			}
 			BG_COLOR.a = alpha * 0.6f;
 			FG_COLOR.a = alpha;
-			RED.a = alpha;
-			BLUE.a = alpha;
-			GOLD.a = alpha;
+			ColorMarkupNames.setAlpha(alpha);
 
 			if (alpha > 0f) {
 				StringBuilder textBuilder = new StringBuilder();
@@ -141,10 +136,6 @@ public class DisplayRunInfo
 						h
 				);
 
-				Colors.put("run_info_red", RED);
-				Colors.put("run_info_blue", BLUE);
-				Colors.put("run_info_gold", GOLD);
-
 				FontHelper.renderFont(
 						sb,
 						FontHelper.cardDescFont_L,
@@ -154,6 +145,8 @@ public class DisplayRunInfo
 						FG_COLOR
 				);
 			}
+
+			ColorMarkupNames.setAlpha(1f);
 		}
 
 		public static class Locator extends SpireInsertLocator

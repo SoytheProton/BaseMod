@@ -1100,3 +1100,4 @@ This is a fast forward to v1.6.3 of daviscook477's fork with a few additional ch
 * Fix for run info panel breaking Say the Spire (kiooeht)
 
 #### dev ####
+* Add named colors for sts's text colors for use in color markup (kiooeht)

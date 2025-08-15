@@ -2,9 +2,9 @@
   "basemod:ContinueRunInfo": {
     "TEXT": [
       "%1$s %2$s",
-      "%1$s, [run_info_blue]Floor %2$d[]",
-      "Ascension [run_info_red]%1$d[]",
-      "[run_info_red]%1$d / %2$d HP[]     [run_info_gold]%3$d Gold[]"
+      "%1$s, [sts:blue]Floor %2$d[]",
+      "Ascension [sts:red]%1$d[]",
+      "[sts:red]%1$d / %2$d HP[]     [sts:gold]%3$d Gold[]"
     ],
     "EXTRA_TEXT": [
       "",
