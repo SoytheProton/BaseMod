@@ -1,7 +1,7 @@
 package basemod.patches.com.megacrit.cardcrawl.cards.AbstractCard;
 
 import basemod.BaseMod;
-import com.badlogic.gdx.graphics.Color;
+import basemod.helpers.KeywordColorInfo;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.helpers.TipHelper;
@@ -69,14 +69,14 @@ public class MultiwordKeywords
 		public static String Replace(String input)
 		{
 			StringBuilder builder = new StringBuilder();
-			Color keywordColor = BaseMod.getKeywordColor(input);
+			KeywordColorInfo keywordColor = BaseMod.getKeywordColor(input);
 
 			String tmp = BaseMod.getKeywordProper(input);
 			if (tmp != null) {
-				if (keywordColor != null) {
+				if (keywordColor != null && !keywordColor.disableTooltipHeaderColor) {
 					builder.setLength(0);
 					for (String word : tmp.split(" ")) {
-						builder.append("[#").append(keywordColor).append(']').append(word).append("[]");
+						builder.append("[#").append(keywordColor.color).append(']').append(word).append("[]");
 					}
 					tmp = builder.toString();
 				}
@@ -89,13 +89,13 @@ public class MultiwordKeywords
 
 			// Capitalize each word
 			builder.setLength(0);
-			if (keywordColor != null) {
-				builder.append("[#").append(keywordColor).append(']');
+			if (keywordColor != null && !keywordColor.disableTooltipHeaderColor) {
+				builder.append("[#").append(keywordColor.color).append(']');
 			}
 			for (String w : input.split(" ")) {
 				builder.append(w.substring(0, 1).toUpperCase()).append(w.substring(1).toLowerCase()).append(' ');
 			}
-			if (keywordColor != null) {
+			if (keywordColor != null && !keywordColor.disableTooltipHeaderColor) {
 				builder.append("[]");
 			}
 			return builder.toString().trim();

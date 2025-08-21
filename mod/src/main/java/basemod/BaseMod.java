@@ -3,6 +3,7 @@ package basemod;
 import basemod.abstracts.*;
 import basemod.eventUtil.AddEventParams;
 import basemod.eventUtil.EventUtils;
+import basemod.helpers.KeywordColorInfo;
 import basemod.helpers.RelicType;
 import basemod.helpers.dynamicvariables.BlockVariable;
 import basemod.helpers.dynamicvariables.DamageVariable;
@@ -206,7 +207,7 @@ public class BaseMod {
 	private static HashMap<String, String> keywordProperNames;
 	private static HashMap<String, String> keywordUniqueNames;
 	private static HashMap<String, String> keywordUniquePrefixes;
-	private static HashMap<String, Color> keywordColors;
+	private static HashMap<String, KeywordColorInfo> keywordColors;
 
 	public static ArrayList<String> encounterList;
 	public static HashMap<String, String> underScoreEncounterIDs;
@@ -1567,7 +1568,7 @@ public class BaseMod {
 		addKeyword(modID, proper, names, description, null);
 	}
 
-	public static void addKeyword(String modID, String proper, String[] names, String description, Color color) {
+	public static void addKeyword(String modID, String proper, String[] names, String description, KeywordColorInfo color) {
 		if (modID != null && !modID.isEmpty()) {
 			if (!modID.endsWith(":")) {
 				modID = modID + ":";
@@ -1611,7 +1612,7 @@ public class BaseMod {
 		return keywordUniquePrefixes.get(keyword);
 	}
 
-	public static Color getKeywordColor(String keyword) {
+	public static KeywordColorInfo getKeywordColor(String keyword) {
 		return keywordColors.get(keyword);
 	}
 

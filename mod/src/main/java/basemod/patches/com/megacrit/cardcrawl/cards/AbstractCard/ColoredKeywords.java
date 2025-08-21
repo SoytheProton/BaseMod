@@ -1,13 +1,13 @@
 package basemod.patches.com.megacrit.cardcrawl.cards.AbstractCard;
 
 import basemod.BaseMod;
+import basemod.helpers.KeywordColorInfo;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.helpers.TipHelper;
 import com.megacrit.cardcrawl.screens.SingleCardViewPopup;
 import javassist.CannotCompileException;
 import javassist.CtBehavior;
@@ -52,10 +52,10 @@ public class ColoredKeywords
 
 		public static StringBuilder appendTempColorHex(StringBuilder builder, String keywordTmp)
 		{
-			Color keywordColor = BaseMod.getKeywordColor(keywordTmp);
+			KeywordColorInfo keywordColor = BaseMod.getKeywordColor(keywordTmp);
 			if (keywordColor != null) {
-				keywordColor.a = 1f;
-				builder.append("{#").append(keywordColor).append('}');
+				keywordColor.color.a = 1f;
+				builder.append("{#").append(keywordColor.color).append('}');
 			}
 
 			return builder;
@@ -128,43 +128,6 @@ public class ColoredKeywords
 				com.evacipated.cardcrawl.modthespire.lib.Matcher finalMatcher = new com.evacipated.cardcrawl.modthespire.lib.Matcher.MethodCallMatcher(GlyphLayout.class, "setText");
 				return LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
 			}
-		}
-	}
-
-//	@SpirePatch2(
-//			clz = TipHelper.class,
-//			method = "renderBox"
-//	)
-	public static class ColorizeTooltipHeader
-	{
-		public static Color getColor(String keyword, Color goldColor)
-		{
-			Color keywordColor = BaseMod.getKeywordColor(keyword);
-			if (keywordColor != null) {
-				keywordColor.a = goldColor.a;
-				return keywordColor;
-			}
-			return goldColor;
-		}
-
-		@SpireInstrumentPatch
-		public static ExprEditor colorize()
-		{
-			return new ExprEditor()
-			{
-				private int count = 0;
-
-				@Override
-				public void edit(FieldAccess f) throws CannotCompileException
-				{
-					if (f.isReader() && f.getClassName().equals(Settings.class.getName()) && f.getFieldName().equals("GOLD_COLOR")) {
-						System.out.println(f.getLineNumber());
-						if (++count == 2) {
-							f.replace("$_ = " + ColorizeTooltipHeader.class.getName() + ".getColor(word, $proceed($$));");
-						}
-					}
-				}
-			};
 		}
 	}
 }
