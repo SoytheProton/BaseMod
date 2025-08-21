@@ -1101,3 +1101,4 @@ This is a fast forward to v1.6.3 of daviscook477's fork with a few additional ch
 
 #### dev ####
 * Add named colors for sts's text colors for use in color markup (kiooeht)
+* Add colored keyword support (kiooeht)

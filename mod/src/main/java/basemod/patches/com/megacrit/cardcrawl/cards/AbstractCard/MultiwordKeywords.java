@@ -26,8 +26,15 @@ public class MultiwordKeywords
 			if (word[0].contains("_") && !keywordTmp.contains("_")) {
 				String tmp = word[0].replace('_', ' ');
 				StringBuilder builder = new StringBuilder();
+				boolean firstWord = true;
 				for (String w : tmp.split(" ")) {
-					builder.append('*').append(w).append(' ');
+					builder.append('*');
+					if (!firstWord) {
+						// Make colored multiword keywords work
+						ColoredKeywords.InitializeDescription.appendTempColorHex(builder, keywordTmp);
+					}
+					builder.append(w).append(' ');
+					firstWord = false;
 				}
 				// Trim to removing ending space
 				// substring to remove starting *
