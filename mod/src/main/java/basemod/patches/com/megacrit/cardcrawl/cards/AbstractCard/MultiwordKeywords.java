@@ -1,6 +1,7 @@
 package basemod.patches.com.megacrit.cardcrawl.cards.AbstractCard;
 
 import basemod.BaseMod;
+import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.helpers.TipHelper;
@@ -67,8 +68,18 @@ public class MultiwordKeywords
 	{
 		public static String Replace(String input)
 		{
+			StringBuilder builder = new StringBuilder();
+			Color keywordColor = BaseMod.getKeywordColor(input);
+
 			String tmp = BaseMod.getKeywordProper(input);
 			if (tmp != null) {
+				if (keywordColor != null) {
+					builder.setLength(0);
+					for (String word : tmp.split(" ")) {
+						builder.append("[#").append(keywordColor).append(']').append(word).append("[]");
+					}
+					tmp = builder.toString();
+				}
 				return tmp;
 			}
 
@@ -77,9 +88,15 @@ public class MultiwordKeywords
 			}
 
 			// Capitalize each word
-			StringBuilder builder = new StringBuilder();
+			builder.setLength(0);
+			if (keywordColor != null) {
+				builder.append("[#").append(keywordColor).append(']');
+			}
 			for (String w : input.split(" ")) {
 				builder.append(w.substring(0, 1).toUpperCase()).append(w.substring(1).toLowerCase()).append(' ');
+			}
+			if (keywordColor != null) {
+				builder.append("[]");
 			}
 			return builder.toString().trim();
 		}
