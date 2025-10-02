@@ -33,7 +33,7 @@ public class RenderRelicOnCard
 	{
 		if (!Settings.hideCards /*&& !__instance.isOnScreen()*/ && !__instance.isFlipped) {
 			for (Pair<Predicate<AbstractCard>, AbstractRelic> info : BaseMod.getBottledRelicList()) {
-				if (info.getKey().test(__instance)) {
+				if (info.getKey().test(__instance) && (((CustomBottleRelic) info.getValue()).showInCombat(__instance) || !(AbstractDungeon.getCurrRoom()).phase == AbstractRoom.RoomPhase.COMBAT)) {
 					AbstractRelic r = info.getValue();
 					r.scale = __instance.drawScale * Settings.scale * 1.5F;
 					try {
