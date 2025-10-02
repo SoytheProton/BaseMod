@@ -7,4 +7,8 @@ import java.util.function.Predicate;
 public interface CustomBottleRelic
 {
 	Predicate<AbstractCard> isOnCard();
+
+	default boolean showInCombat(AbstractCard card) {
+ 		return true;
+	}
 }
