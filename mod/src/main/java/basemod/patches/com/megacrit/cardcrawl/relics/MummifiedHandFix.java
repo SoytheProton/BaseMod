@@ -15,7 +15,11 @@ public class MummifiedHandPatch {
         return new ExprEditor() {
             public void edit(FieldAccess f) throws CannotCompileException {
                 if (f.getClassName().equals(AbstractCard.class.getName()) && f.getFieldName().equals("cost")) {
-                    f.replace("$_ = $0.costForTurn;");
+                    f.replace("if (" + BaseMod.class.getName() + ".fixesEnabled) {" +
+                            "$_ = $0.costForTurn;" +
+                            "} else {" +
+                            "$_ = $proceed($$);" +
+                            "}");
                 }
             }
         };
