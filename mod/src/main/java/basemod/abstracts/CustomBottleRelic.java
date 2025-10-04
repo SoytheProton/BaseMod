@@ -15,7 +15,7 @@ public interface CustomBottleRelic
 	}
 
 	// Scale of the relic when it's being rendered.
-	default float scale(float scale) {
-		return 1.5F;
-	}
+    default float scale(AbstractCard card) {
+        return 1.5F;
+    }
 }
